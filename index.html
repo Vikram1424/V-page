@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Be My Valentine ❤️</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", sans-serif;
+    }
+
+    body {
+      overflow: hidden;
+      background: linear-gradient(135deg, #ff4e8b, #ff9ec7);
+      height: 100vh;
+    }
+
+    /* Pages */
+    .page {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* Roses Animation */
+    .rose {
+      position: absolute;
+      top: -50px;
+      font-size: 28px;
+      animation: fall linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(360deg);
+      }
+    }
+
+    /* Button Styles */
+    button {
+      padding: 15px 30px;
+      border: none;
+      border-radius: 30px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: 0.3s;
+      margin: 10px;
+    }
+
+    .main-btn {
+      background: #fff;
+      color: #ff2f6d;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .main-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .yes-btn {
+      background: #00ff99;
+      color: #003322;
+      font-weight: bold;
+      padding: 18px 50px;
+      font-size: 22px;
+    }
+
+    .no-btn {
+      background: #444;
+      color: white;
+      padding: 6px 14px;
+      font-size: 12px;
+      position: absolute;
+      bottom: 15px;
+      right: 15px;
+    }
+
+    /* Snake */
+    #snake {
+      position: absolute;
+      bottom: -100px;
+      right: 10px;
+      font-size: 60px;
+      display: none;
+      transition: all 1s linear;
+    }
+
+    /* Text */
+    h1 {
+      font-size: 2.8rem;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+    }
+
+    /* Success Page */
+    #success h1 {
+      color: #fff;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Page 1 -->
+  <div id="page1" class="page">
+    <h1>For You, My Love ❤️</h1>
+    <p>Something special is waiting...</p>
+    <button class="main-btn" onclick="goToPage2()">I want to ask you something madam</button>
+  </div>
+
+  <!-- Page 2 -->
+  <div id="page2" class="page hidden">
+    <h1>Will you be my Valentine, my love? 💖</h1>
+
+    <button class="yes-btn" onclick="sayYes()">YES 😍</button>
+
+    <button id="noBtn" class="no-btn">no</button>
+
+    <div id="snake">🐍</div>
+  </div>
+
+  <!-- Success Page -->
+  <div id="success" class="page hidden">
+    <h1>Yayyyy!!! 💕🥰</h1>
+
+    <p>You said YES ❤️</p>
+    <h2 style="font-size:2rem; margin:15px 0; color:#fff;">I love you ma 💖</h2>
+    <p>I’m the happiest person now 💞</p>
+
+    <p>Happy Valentine’s Day 🌹</p>
+  </div>
+
+
+  <script>
+    /* Create Falling Roses */
+    function createRoses() {
+      const rose = document.createElement("div");
+      rose.classList.add("rose");
+      rose.innerText = "🌹";
+
+      rose.style.left = Math.random() * 100 + "vw";
+      rose.style.animationDuration = (3 + Math.random() * 5) + "s";
+      rose.style.fontSize = (20 + Math.random() * 20) + "px";
+
+      document.body.appendChild(rose);
+
+      setTimeout(() => {
+        rose.remove();
+      }, 8000);
+    }
+
+    setInterval(createRoses, 300);
+
+
+    /* Navigation */
+    function goToPage2() {
+      document.getElementById("page1").classList.add("hidden");
+      document.getElementById("page2").classList.remove("hidden");
+    }
+
+    function sayYes() {
+      document.getElementById("page2").classList.add("hidden");
+      document.getElementById("success").classList.remove("hidden");
+    }
+
+
+    /* Snake Eats No Button */
+    const noBtn = document.getElementById("noBtn");
+    const snake = document.getElementById("snake");
+
+    noBtn.addEventListener("mouseenter", () => {
+      snake.style.display = "block";
+
+      const btnRect = noBtn.getBoundingClientRect();
+
+      snake.style.bottom = "15px";
+      snake.style.right = "15px";
+
+      setTimeout(() => {
+        noBtn.style.display = "none";
+        snake.innerText = "🐍😋";
+      }, 800);
+    });
+  </script>
+
+</body>
+</html>
+
