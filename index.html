@@ -1,322 +1,82 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Be My Valentine ❤️</title>
-
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "Segoe UI", sans-serif;
-    }
-
-    body {
-      overflow: hidden;
-      background: linear-gradient(135deg, #ff4e8b, #ff9ec7);
-      height: 100vh;
-    }
-
-    /* Pages */
-    .page {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      text-align: center;
-    }
-
-    .hidden { display: none; }
-
-    /* Roses */
-    .rose {
-      position: absolute;
-      top: -50px;
-      font-size: 28px;
-      animation: fall linear infinite;
-      opacity: 0.8;
-    }
-
-    @keyframes fall {
-      to { transform: translateY(110vh) rotate(360deg); }
-    }
-
-    /* Hearts */
-    .heart {
-      position: absolute;
-      bottom: -20px;
-      font-size: 22px;
-      animation: floatUp 6s linear infinite;
-      opacity: 0.8;
-    }
-
-    @keyframes floatUp {
-      to {
-        transform: translateY(-120vh);
-        opacity: 0;
-      }
-    }
-
-    /* Buttons */
-    button {
-      padding: 15px 30px;
-      border: none;
-      border-radius: 30px;
-      font-size: 18px;
-      cursor: pointer;
-      transition: 0.3s;
-      margin: 10px;
-    }
-
-    .main-btn {
-      background: #fff;
-      color: #ff2f6d;
-      font-weight: bold;
-    }
-
-    .main-btn:hover { transform: scale(1.1); }
-
-    .yes-btn {
-      background: #00ff99;
-      color: #003322;
-      font-weight: bold;
-      padding: 18px 60px;
-      font-size: 24px;
-    }
-
-    .no-btn {
-      background: #444;
-      color: white;
-      padding: 6px 14px;
-      font-size: 12px;
-      position: absolute;
-      bottom: 15px;
-      right: 15px;
-    }
-
-    /* Snake */
-    #snake {
-      position: absolute;
-      bottom: -100px;
-      right: 10px;
-      font-size: 60px;
-      display: none;
-      transition: all 1s linear;
-    }
-
-    /* Fireworks */
-    .firework {
-      position: absolute;
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      animation: explode 1s ease-out forwards;
-    }
-
-    @keyframes explode {
-      to {
-        transform: scale(15);
-        opacity: 0;
-      }
-    }
-
-    /* Music Button */
-    #musicBtn {
-      position: fixed;
-      top: 15px;
-      right: 15px;
-      background: #fff;
-      color: #ff2f6d;
-      border-radius: 50%;
-      width: 45px;
-      height: 45px;
-      font-size: 18px;
-      font-weight: bold;
-      z-index: 999;
-    }
-
-    h1 {
-      font-size: 2.8rem;
-      margin-bottom: 20px;
-      text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-    }
-
-    p { font-size: 1.2rem; margin-bottom: 20px; }
-
-    /* WhatsApp */
-    .whatsapp-btn {
-      background: #25D366;
-      color: white;
-      font-size: 18px;
-      padding: 12px 25px;
-      margin-top: 20px;
-    }
-
-    /* Pulse */
-    #success h1 { animation: pulse 1.5s infinite; }
-
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-      100% { transform: scale(1); }
-    }
-  </style>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <script src="http://code.jquery.com/jquery-1.7.1.min.js" type="text/javascript"></script>  
+  <title>Happy Valentine's Day Max!</title>
+<link rel="icon" type="image/jpg" href="favicon.jpg">
+<style>
+/* HELLO MAX! THIS IS MY CSS! */
+body {
+	background-image: url('tandem_grey.png');
+}
+body::before {
+	content: url('tandem_grey.png') url('broken.png') url('clock.png') url('colors.png')  url('theCertificate.png') url('thePerks.png');
+	display: none;
+}
+.certificate {
+	background: #fff;
+	background-image: url('theCertificate.png');
+	box-shadow: 0 0 5px #888;
+}
+.benefits {
+	background: #fff;
+	background-image: url('thePerks.png');
+	box-shadow: 0 0 5px #888;
+}
+.no {
+	background-image: url('broken.png');
+}
+.yes {
+	background-image: url('colors.png');
+}
+.maybe {
+	background-image: url('clock.png');
+}
+#image {
+	height: 517px;
+	width: 780px;
+	margin: 50px auto;
+}
+</style>
+  
 </head>
-
 <body>
+	<script type="text/javascript">
+/* ZOMG. FUNCTION! */
+/* I ALSO LEARNED HOW TO DO A LOT OF THIS BY CHANGING .CSS INSTEAD OF ADDING/REMOVING CLASSES, WHICH I LEARNED IS BETTER. I ALSO LEARNED THAT I SHOULD MAKE VARS FOR BODY AND IMAGE SINCE I'M USING THEM MORE THAN ONCE! */
+	var beardedBoo = function() {
+		var body = $('body'),
+		    image = $("#image");
+		body.removeClass("no").removeClass("maybe")
+		image.removeClass("benefits").removeClass("certificate")
+		var answer = prompt("Will you be my valentine? Yes, No, Maybe?").toLowerCase()
+/* .toLowerCase IS BEST PRACTICE! IT'S ALSO OK IF YOU TYPE THE FIRST LETTER INSTEAD OF THE WORD! */
+		if (answer == "yes" || answer == 'y') {
+			body.addClass("yes")
+			image.addClass("certificate")
+		} else if (answer == "maybe" || answer == 'm') {
+			body.addClass("maybe")
+/* I WANTED THE BG TO CHANGE BEFORE THE ALERT AND THE IMAGE AFTER THE PROMPT AND THE NEXT PROMPT AFTER THAT! I LEARNED THAT IF ALERT AD IMAGE ARE NOT IN THE setTimeout TOGETHER, IT DOES THEM AT THE SAME TIME. */
+			setTimeout(beardedBoo, 6000)
+			setTimeout(function() {
+				alert("Perhaps you are not aware of the many benefits")
+				image.addClass("benefits")
+			}, 200)
+/* HEY!!! */
+		} else {
+			body.addClass("no")
+			setTimeout(function() {
+				alert("Say it isn't so. Please try again.")
+				beardedBoo()
+			}, 200)
+		}
+	}
+    setTimeout(beardedBoo, 300)
+/* ALL THESE ALERTS/PROMPTS COULD GET ANNOYING, IT'S BEST TO JUST BE MY VALENTINE */
+	</script>
 
-  <!-- Music -->
-  <audio id="bgMusic" loop>
-    <source src="music.mp3" type="audio/mpeg">
-  </audio>
-
-  <!-- Music Button -->
-  <button id="musicBtn" onclick="toggleMusic()">▶️</button>
-
-  <!-- Page 1 -->
-  <div id="page1" class="page">
-    <h1>For You, My Love ❤️</h1>
-    <p>I have something special to ask you...</p>
-
-    <button class="main-btn" onclick="goToPage2()">
-      I want to ask you something madam
-    </button>
-  </div>
-
-  <!-- Page 2 -->
-  <div id="page2" class="page hidden">
-    <h1>Will you be my Valentine, my love? 💖</h1>
-
-    <button class="yes-btn" onclick="sayYes()">YES 😍</button>
-
-    <button id="noBtn" class="no-btn">no</button>
-
-    <div id="snake">🐍</div>
-  </div>
-
-  <!-- Success -->
-  <div id="success" class="page hidden">
-    <h1>Yayyyy!!! 💕🥰</h1>
-
-    <p>You said YES ❤️</p>
-    <h2 style="font-size:2rem; margin:15px 0;">I love you ma 💖</h2>
-    <p>I’m the happiest person now 💞</p>
-
-    <button class="whatsapp-btn" onclick="openWhatsApp()">
-      💬 Send Love on WhatsApp
-    </button>
-
-    <p>Happy Valentine’s Day 🌹</p>
-  </div>
-
-  <script>
-
-    const music = document.getElementById("bgMusic");
-    const musicBtn = document.getElementById("musicBtn");
-
-    function toggleMusic(){
-      if(music.paused){
-        music.play();
-        musicBtn.textContent = "⏸️";
-      } else {
-        music.pause();
-        musicBtn.textContent = "▶️";
-      }
-    }
-
-    document.addEventListener("click", () => {
-      music.play();
-      musicBtn.textContent = "⏸️";
-    }, { once:true });
-
-    /* Roses */
-    function createRoses() {
-      const rose = document.createElement("div");
-      rose.classList.add("rose");
-      rose.innerText = "🌹";
-
-      rose.style.left = Math.random() * 100 + "vw";
-      rose.style.animationDuration = (3 + Math.random() * 5) + "s";
-      rose.style.fontSize = (20 + Math.random() * 20) + "px";
-
-      document.body.appendChild(rose);
-
-      setTimeout(() => rose.remove(), 8000);
-    }
-
-    setInterval(createRoses, 300);
-
-    /* Hearts */
-    function createHeart(){
-      const heart = document.createElement("div");
-      heart.classList.add("heart");
-      heart.innerText = "💖";
-
-      heart.style.left = Math.random()*100 + "vw";
-      heart.style.animationDuration = (4 + Math.random()*4) + "s";
-
-      document.body.appendChild(heart);
-
-      setTimeout(()=>heart.remove(),7000);
-    }
-
-    setInterval(createHeart, 800);
-
-    /* Pages */
-    function goToPage2(){
-      document.getElementById("page1").classList.add("hidden");
-      document.getElementById("page2").classList.remove("hidden");
-    }
-
-    function sayYes(){
-      document.getElementById("page2").classList.add("hidden");
-      document.getElementById("success").classList.remove("hidden");
-
-      startFireworks();
-    }
-
-    /* Snake */
-    const noBtn = document.getElementById("noBtn");
-    const snake = document.getElementById("snake");
-
-    noBtn.addEventListener("mouseenter", ()=>{
-      snake.style.display = "block";
-
-      setTimeout(()=>{
-        noBtn.style.display = "none";
-        snake.innerText = "🐍😋";
-      },800);
-    });
-
-    /* Fireworks */
-    function startFireworks(){
-      setInterval(()=>{
-        const fw = document.createElement("div");
-        fw.classList.add("firework");
-
-        fw.style.left = Math.random()*100 + "vw";
-        fw.style.top = Math.random()*100 + "vh";
-        fw.style.background = `hsl(${Math.random()*360},100%,60%)`;
-
-        document.body.appendChild(fw);
-
-        setTimeout(()=>fw.remove(),1000);
-      },300);
-    }
-
-    /* WhatsApp */
-    function openWhatsApp(){
-      const msg = encodeURIComponent("I love you too ❤️🥰");
-      window.open(`https://wa.me/?text=${msg}`,'_blank');
-    }
-
-  </script>
-
+<div id="image"></div>
+ 
 </body>
 </html>
