@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Be My Valentine ❤️</title>
 
   <style>
@@ -32,11 +32,9 @@
       text-align: center;
     }
 
-    .hidden {
-      display: none;
-    }
+    .hidden { display: none; }
 
-    /* Roses Animation */
+    /* Roses */
     .rose {
       position: absolute;
       top: -50px;
@@ -46,12 +44,26 @@
     }
 
     @keyframes fall {
+      to { transform: translateY(110vh) rotate(360deg); }
+    }
+
+    /* Hearts */
+    .heart {
+      position: absolute;
+      bottom: -20px;
+      font-size: 22px;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes floatUp {
       to {
-        transform: translateY(110vh) rotate(360deg);
+        transform: translateY(-120vh);
+        opacity: 0;
       }
     }
 
-    /* Button Styles */
+    /* Buttons */
     button {
       padding: 15px 30px;
       border: none;
@@ -66,19 +78,16 @@
       background: #fff;
       color: #ff2f6d;
       font-weight: bold;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
 
-    .main-btn:hover {
-      transform: scale(1.1);
-    }
+    .main-btn:hover { transform: scale(1.1); }
 
     .yes-btn {
       background: #00ff99;
       color: #003322;
       font-weight: bold;
-      padding: 18px 50px;
-      font-size: 22px;
+      padding: 18px 60px;
+      font-size: 24px;
     }
 
     .no-btn {
@@ -101,23 +110,56 @@
       transition: all 1s linear;
     }
 
-    /* Text */
+    /* Fireworks */
+    .firework {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      animation: explode 1s ease-out forwards;
+    }
+
+    @keyframes explode {
+      to {
+        transform: scale(15);
+        opacity: 0;
+      }
+    }
+
+    /* Music Button */
+    #musicBtn {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      background: #fff;
+      color: #ff2f6d;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      font-size: 18px;
+      font-weight: bold;
+      z-index: 999;
+    }
+
     h1 {
       font-size: 2.8rem;
       margin-bottom: 20px;
       text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
     }
 
-    p {
-      font-size: 1.2rem;
-      margin-bottom: 30px;
+    p { font-size: 1.2rem; margin-bottom: 20px; }
+
+    /* WhatsApp */
+    .whatsapp-btn {
+      background: #25D366;
+      color: white;
+      font-size: 18px;
+      padding: 12px 25px;
+      margin-top: 20px;
     }
 
-    /* Success Page */
-    #success h1 {
-      color: #fff;
-      animation: pulse 1.5s infinite;
-    }
+    /* Pulse */
+    #success h1 { animation: pulse 1.5s infinite; }
 
     @keyframes pulse {
       0% { transform: scale(1); }
@@ -126,13 +168,25 @@
     }
   </style>
 </head>
+
 <body>
+
+  <!-- Music -->
+  <audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Music Button -->
+  <button id="musicBtn" onclick="toggleMusic()">▶️</button>
 
   <!-- Page 1 -->
   <div id="page1" class="page">
     <h1>For You, My Love ❤️</h1>
-    <p>Something special is waiting...</p>
-    <button class="main-btn" onclick="goToPage2()">I want to ask you something madam</button>
+    <p>I have something special to ask you...</p>
+
+    <button class="main-btn" onclick="goToPage2()">
+      I want to ask you something madam
+    </button>
   </div>
 
   <!-- Page 2 -->
@@ -146,20 +200,42 @@
     <div id="snake">🐍</div>
   </div>
 
-  <!-- Success Page -->
+  <!-- Success -->
   <div id="success" class="page hidden">
     <h1>Yayyyy!!! 💕🥰</h1>
 
     <p>You said YES ❤️</p>
-    <h2 style="font-size:2rem; margin:15px 0; color:#fff;">I love you ma 💖</h2>
+    <h2 style="font-size:2rem; margin:15px 0;">I love you ma 💖</h2>
     <p>I’m the happiest person now 💞</p>
+
+    <button class="whatsapp-btn" onclick="openWhatsApp()">
+      💬 Send Love on WhatsApp
+    </button>
 
     <p>Happy Valentine’s Day 🌹</p>
   </div>
 
-
   <script>
-    /* Create Falling Roses */
+
+    const music = document.getElementById("bgMusic");
+    const musicBtn = document.getElementById("musicBtn");
+
+    function toggleMusic(){
+      if(music.paused){
+        music.play();
+        musicBtn.textContent = "⏸️";
+      } else {
+        music.pause();
+        musicBtn.textContent = "▶️";
+      }
+    }
+
+    document.addEventListener("click", () => {
+      music.play();
+      musicBtn.textContent = "⏸️";
+    }, { once:true });
+
+    /* Roses */
     function createRoses() {
       const rose = document.createElement("div");
       rose.classList.add("rose");
@@ -171,45 +247,76 @@
 
       document.body.appendChild(rose);
 
-      setTimeout(() => {
-        rose.remove();
-      }, 8000);
+      setTimeout(() => rose.remove(), 8000);
     }
 
     setInterval(createRoses, 300);
 
+    /* Hearts */
+    function createHeart(){
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerText = "💖";
 
-    /* Navigation */
-    function goToPage2() {
+      heart.style.left = Math.random()*100 + "vw";
+      heart.style.animationDuration = (4 + Math.random()*4) + "s";
+
+      document.body.appendChild(heart);
+
+      setTimeout(()=>heart.remove(),7000);
+    }
+
+    setInterval(createHeart, 800);
+
+    /* Pages */
+    function goToPage2(){
       document.getElementById("page1").classList.add("hidden");
       document.getElementById("page2").classList.remove("hidden");
     }
 
-    function sayYes() {
+    function sayYes(){
       document.getElementById("page2").classList.add("hidden");
       document.getElementById("success").classList.remove("hidden");
+
+      startFireworks();
     }
 
-
-    /* Snake Eats No Button */
+    /* Snake */
     const noBtn = document.getElementById("noBtn");
     const snake = document.getElementById("snake");
 
-    noBtn.addEventListener("mouseenter", () => {
+    noBtn.addEventListener("mouseenter", ()=>{
       snake.style.display = "block";
 
-      const btnRect = noBtn.getBoundingClientRect();
-
-      snake.style.bottom = "15px";
-      snake.style.right = "15px";
-
-      setTimeout(() => {
+      setTimeout(()=>{
         noBtn.style.display = "none";
         snake.innerText = "🐍😋";
-      }, 800);
+      },800);
     });
+
+    /* Fireworks */
+    function startFireworks(){
+      setInterval(()=>{
+        const fw = document.createElement("div");
+        fw.classList.add("firework");
+
+        fw.style.left = Math.random()*100 + "vw";
+        fw.style.top = Math.random()*100 + "vh";
+        fw.style.background = `hsl(${Math.random()*360},100%,60%)`;
+
+        document.body.appendChild(fw);
+
+        setTimeout(()=>fw.remove(),1000);
+      },300);
+    }
+
+    /* WhatsApp */
+    function openWhatsApp(){
+      const msg = encodeURIComponent("I love you too ❤️🥰");
+      window.open(`https://wa.me/?text=${msg}`,'_blank');
+    }
+
   </script>
 
 </body>
 </html>
-
